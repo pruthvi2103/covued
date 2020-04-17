@@ -35,6 +35,11 @@
              </div>
              </div> 
 </div>
+<div class="row">
+    <div class="col">
+    <div class="alert alert-dark"><p>Made By: Pruthvi Shetty.</p></div>
+    </div>
+</div>
     </div>
 </template>
 
