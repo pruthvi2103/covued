@@ -1,14 +1,19 @@
 <template>
-<div>
-  <hr />
-  <div id="app" class="container">
+<div id="app" :class="(mode === 'dark') ? 'dark' : ' '">
+ 
+<Header :mode="mode" :updated="popoverdat"></Header>
+  <div  class="container">
+  
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8 offset-md-2">
      <Title></Title>
       <IndiaCounter :indiaData="indInfo.total"></IndiaCounter>
       
+      
     </div>
-    <div class="col-md-8">
+    </div>
+    <div class="row">
+    <div class="col-md-8 offset-md-2">
       <ul class="list-group">
       <StateCounter 
       v-for="states in indInfo.statewise"
@@ -28,40 +33,63 @@
 import axios from 'axios';
 import IndiaCounter from './components/IndiaCounter';
 import Title from './components/Title';
-import StateCounter from './components/StateCounter'
+import StateCounter from './components/StateCounter';
+import Header from './components/Header'
+
   export default {
     name:'app',
     components:{
-                  IndiaCounter,Title,StateCounter
+                  IndiaCounter,Title,StateCounter,Header
     },
     data(){
       return { 
-      indInfo: [ {} ]
+      indInfo: [ {} ],
+      popoverdat: '',
+      mode: 'dark'
+      
       };
     },
     methods:{
+      
        
          },
-           
-
-         
+    computed:{
+popoverData() {
         
-       
-       
+        return {
+          title: 'Information',
+          content: 'Last Updated: ' + this.popoverdat.substring(0,this.popoverdat.indexOf("T"))
+        }
+      }
+    },
     mounted () {
     axios
       .get('https://api.rootnet.in/covid19-in/unofficial/covid19india.org/statewise.json')
-      .then(response => (this.indInfo = response.data.data))
+      .then(response => (this.indInfo = response.data.data).then(this.popoverdat = this.indInfo.lastRefreshed));
+      
+    
   }
   }
 </script>
 
 <style lang="css" scoped>
 
-hr{
-  border: 5px solid #6200EE;
-  margin-bottom: 10px;
-  padding-top: -10px;
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  
 }
+
+.dark{
+  background-color: #192734;
+  color: #f3f3f3;
+}
+.popover-header{
+  background-color: white !important;
+}
+
+
+
 
 </style>

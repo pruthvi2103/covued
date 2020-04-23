@@ -1,6 +1,10 @@
 <template>
   <li class="list-group-item">
+<div :id="state.state">
       <h4>{{ state.state }}</h4>
+</div>
+      
+      <div>
         <div class="row">
          <div class="col-md-3">
              
@@ -36,7 +40,7 @@
              </div>
              </div> 
         </div>
-
+</div>
   </li>
 </template>
 
@@ -63,6 +67,13 @@ props: ['state']
 p,.alert-heading{
     margin: 4px;
     padding-left: 10px;
+}
+
+.list-group-item {
+background-color: transparent;
+border: 2px solid #121212;
+border-radius: 0;
+color: #fff;
 }
 
 </style>>

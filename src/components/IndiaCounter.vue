@@ -35,24 +35,37 @@
              </div>
              </div> 
 </div>
+<div class="center">
+
+<IndiaCounterChart :chartData="chartInfo"></IndiaCounterChart>
+
+</div>
 <div class="row">
     <div class="col">
-    <div class="alert alert-dark"><p>Made By: Pruthvi Shetty.</p></div>
+    <div class="alert alert-dark"><p>Created By: Pruthvi Shetty.</p></div>
     </div>
 </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+import IndiaCounterChart from './IndiaCounterChart'
     export default {
+        components: {
+                        IndiaCounterChart,
+        },
         data(){
             return{
+                chartInfo : [ {} ]
                 
             };
         },
         props: ['indiaData'],
         mounted(){
-            
+            axios
+      .get('https://api.covid19india.org/data.json')
+      .then(response => (this.chartInfo = response.data.cases_time_series))
         }
         
     }
