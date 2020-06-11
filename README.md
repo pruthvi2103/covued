@@ -1,5 +1,7 @@
 # covued
 
+## Deployed Project Link : https://covued.herokuapp.com/
+
 ## Project setup
 ```
 npm install
